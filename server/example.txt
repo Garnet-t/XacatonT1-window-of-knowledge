@@ -1,0 +1,37 @@
+2. Interconnection of Modules:
+   - Integrates ModelLauncher for initializing and running the QA pipeline.
+   - Integrates KnowledgeBasePlug for Kafka and Spark-based knowledge base processing.
+
+3. Error Handling:
+   - Proper error handling with HTTPException for invalid requests or internal errors.
+
+4. Resource Management:
+   - Closes Kafka and Spark resources gracefully on server shutdown.
+
+5. Scalability:
+   - Designed to handle multiple requests concurrently using FastAPI’s asynchronous capabilities.
+
+### API Endpoint:
+- **POST /upload-and-query/**:
+  - Accepts a list of files and a user question.
+  - Returns the response from the QA pipeline.
+
+### Example Request:
+curl -X POST "http://localhost:8000/upload-and-query/" \
+-F "files=@file1.txt" \
+-F "files=@file2.txt" \
+-F "question=What is the main topic?"
+### Example Response:
+{
+  "response": "The main topic is artificial intelligence and its applications."
+}
+### How It Works:Initialize the Serverer**:
+   - Create an instance of ServerCore with the configuration file, Kafka bootstrap servers, and Kafka topic.
+Run the Serverer**:
+   - Call the run method to start the FastAPI server.
+Handle Requeststs**:
+   - The server listens for POST requests at /upload-and-query/, processes the files and question, and returns the QA pipeline result.
+Shutdown Gracefullyly**:
+   - On server shutdown, Kafka and Spark resources are closed to ensure clean termination.
+
+This ServerCore module provides a complete server implementation that interconnects all the previous modules and exposes a user-friendly API for the QA pipeline.
